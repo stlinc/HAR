@@ -103,7 +103,15 @@ Model accuracies are:
 
 - Random forests: 0.9987255.
 
-As a result, the random forests model has the highest accuracy on the validation set: 0.9987255. We will apply it to the 20 testing cases.
+As a result, the random forests model has the highest accuracy on the validation set: 0.9987255.
+
+Compute out-of-sample error.
+``` {r OoSError, eval = TRUE}
+1 - as.numeric(confusionMatrix(cleanValidation$classe, predRF)$overall['Accuracy'])
+```
+The out-of-sample error is 0.0012745, or 0.12745%.
+
+We will apply it to the 20 testing cases.
 ``` {r pred20cases, eval = TRUE}
 predTest <- predict(rfFit, newTesting)
 predTest

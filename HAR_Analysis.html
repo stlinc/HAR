@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 <meta name="author" content="ST Lin" />
 
@@ -39,25 +39,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
-
-</head>
-
-<body>
-
 <style type="text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
 h1 {
   font-size: 34px;
 }
@@ -78,6 +60,30 @@ h5 {
 }
 h6 {
   font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -108,7 +114,8 @@ $(document).ready(function () {
 <div class="fluid-row" id="header">
 
 
-<h1 class="title">Human Activity Recognition (HAR) Analysis</h1>
+
+<h1 class="title toc-ignore">Human Activity Recognition (HAR) Analysis</h1>
 <h4 class="author"><em>ST Lin</em></h4>
 <h4 class="date"><em>2016年5月11日</em></h4>
 
@@ -308,7 +315,12 @@ predRF &lt;- predict(rfFit, cleanValidation)</code></pre>
 <li><p>SVM: 0.9378027;</p></li>
 <li><p>Random forests: 0.9987255.</p></li>
 </ul>
-<p>As a result, the random forests model has the highest accuracy on the validation set: 0.9987255. We will apply it to the 20 testing cases.</p>
+<p>As a result, the random forests model has the highest accuracy on the validation set: 0.9987255.</p>
+<p>Compute out-of-sample error.</p>
+<pre class="r"><code>1 - as.numeric(confusionMatrix(cleanValidation$classe, predRF)$overall['Accuracy'])</code></pre>
+<pre><code>## [1] 0.001274535</code></pre>
+<p>The out-of-sample error is 0.0012745, or 0.12745%.</p>
+<p>We will apply it to the 20 testing cases.</p>
 <pre class="r"><code>predTest &lt;- predict(rfFit, newTesting)
 predTest</code></pre>
 <pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
